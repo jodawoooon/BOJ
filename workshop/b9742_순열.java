@@ -1,6 +1,7 @@
 package algo.boj;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
@@ -9,6 +10,7 @@ import java.util.StringTokenizer;
 public class b9742_순열 {
 	
 	static int tgtIdx, length, COUNT;
+	static String str;
 	static char[] src;
 	static char[] tgt;
 	static boolean[] select;
@@ -16,21 +18,20 @@ public class b9742_순열 {
 	static StringBuilder sb = new StringBuilder();
 	static int cnt;
 	public static void main(String[] args) throws IOException {
+		System.setIn(new FileInputStream("9742input.txt"));
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		String str;
-		StringTokenizer st;
+		
 		while(true) {
-			cnt = 0;
-			try {
-				str = br.readLine();
-				
-			}catch (Exception e) {
-				break;
-			}
+
+			str = br.readLine();
+			if( str == null ) break;
 			
 			sb.setLength(0);
-			st = new StringTokenizer(str);
-
+			COUNT = 0;
+			found = false;
+			
+			StringTokenizer st = new StringTokenizer(str);
+			
 			src = st.nextToken().toCharArray();
 			tgtIdx = Integer.parseInt(st.nextToken());
 			length = src.length;
@@ -42,6 +43,7 @@ public class b9742_순열 {
 			perm(0);
 
 			if(!found) {
+				System.out.print(str+" = ");
 				System.out.println("No permutation");
 			}
 
@@ -58,10 +60,11 @@ public class b9742_순열 {
 			COUNT++;
 			if(COUNT==tgtIdx) {
 				found = true;
-				sb.append(tgt);
+				sb.append(str).append(" = ").append(tgt);
 				System.out.println(sb);
+				return;
 			}
-			return;
+			
 		}
 		for (int i = 0; i < length; i++) {
 			if(select[i]) continue;
