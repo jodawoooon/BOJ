@@ -13,7 +13,13 @@ public class b1874스택수열 {
 	이를 계산하는 프로그램을 작성하라.*/
 	
 	// 4 3 6 8 7 5 2 1
-	// 
+	// 오름차수 push -> pop을 하더라도 몇까지 push했는지 기억해야한다 . -> cnt 변수
+	
+	//만약 tmp가 cnt보다 크면. (입력받은값이 아직 push한적 없으면)
+	// stack에 tmp까지 push하고 stack의 top을 pop한다.
+	//만약 tmp가 cnt보다 작다면, tmp는 이미 stack에 들어있다.
+	//stack.peek()을 한다 => tmp==peek이 아니면 수열을 만들수 없다 => NO
+	//tmp==peek이면 pop한다.
 	static int K;
 	static Stack<Integer> stack = new Stack<>();
 	static StringBuilder sb = new StringBuilder();
@@ -29,13 +35,18 @@ public class b1874스택수열 {
 					sb.append("+\n");
 				}
 				cnt = tmp;
-			}else if(stack.peek()!=tmp){
+				stack.pop();
+				sb.append("-\n");
+			}else if(stack.peek()==tmp){
+				stack.pop();
+				sb.append("-\n");
+			}
+			else if(stack.peek()!=tmp){
 				System.out.println("NO");
 				return;
 
 			}
-				stack.pop();
-				sb.append("-\n");
+				
 
 		}
 
